@@ -43,14 +43,19 @@ def load_movies():
 
     file = open("seed_data/u.item")
     
-    for row in file:
+    for i, row in enumerate(file):
         row = row.rstrip()
-        movie_id, title, released_at_str, imbd_url = row.split("|")
+        movie_id, title, released_at_str,junk, imdb_url = row.split("|")[:5]
 
-        movie = Movie(movie_id = movie_id,
+        if released_at_str:
+            released_at = datetime.strptime(released_at_str,"%d-%b-%Y")
+        else:
+            released_at = None
+        
+        movie = Movie(
                     title = list(title)[0], 
-                    released_at = datetime.strptime(released_at_str,"%d-%b-%Y"),
-                    imbd_url=imbd_url)
+                    released_at = released_at,
+                    imdb_url = imdb_url)
 
         db.session.add(movie)
     
@@ -66,6 +71,18 @@ def load_ratings():
     Rating.query.delete()
 
     file = open("seed_data/u.data")
+
+    for i, row in enumerate(file):
+        row = row.rstrip()
+        user_id, movie_id, score, timestamp = row.split("\t")
+
+        rating = Rating(user_id = int(user_id),
+                        movie_id = int(movie_id),
+                        score = int(score))
+
+        db.session.add(rating)
+
+    db.session.commit()
 
 
   
@@ -90,6 +107,9 @@ if __name__ == "__main__":
     db.create_all()
 
     # Import different types of data
+    # user_filename = "seed_data/u.user"
+    # movie_filename = "seed_data/u.item"
+    # rating_filename = "seed_data/u.data"
     load_users()
     load_movies()
     load_ratings()
