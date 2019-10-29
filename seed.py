@@ -49,7 +49,7 @@ def load_movies():
 
         movie = Movie(movie_id = movie_id,
                     title = list(title)[0], 
-                    released_at = datetime.strptime(released_at_str,"%d-%b-%Y",
+                    released_at = datetime.strptime(released_at_str,"%d-%b-%Y"),
                     imbd_url=imbd_url)
 
         db.session.add(movie)
@@ -60,7 +60,15 @@ def load_movies():
 
 def load_ratings():
     """Load ratings from u.data into database."""
-    # "seed_data/u.data"
+
+    print('Ratings')
+
+    Rating.query.delete()
+
+    file = open("seed_data/u.data")
+
+
+  
 
 def set_val_user_id():
     """Set value for the next user_id after seeding database"""
