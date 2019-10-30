@@ -53,7 +53,7 @@ def load_movies():
             released_at = None
         
         movie = Movie(
-                    title = list(title)[0], 
+                    title = list(title)[:-7], 
                     released_at = released_at,
                     imdb_url = imdb_url)
 
