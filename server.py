@@ -85,7 +85,21 @@ def validate_user():
         flash('incorrect password')
         return redirect('/login')
 
+@app.route('/users/<int:user_id>')
+def display_user_info(user_id):
 
+#age, zipcode, list of movies
+
+    user = User.query.filter_by(user_id = user_id).first()
+    age = user.age
+    zipcode = user.zipcode
+    rated_movies = user.ratings
+
+
+    return render_template('user_info.html', user_id= user_id,
+                            user_age = age, 
+                            user_zipcode=zipcode, 
+                            user_ratings = rated_movies)
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
