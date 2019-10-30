@@ -96,10 +96,23 @@ def display_user_info(user_id):
     rated_movies = user.ratings
 
 
-    return render_template('user_info.html', user_id= user_id,
+    return render_template('user_info.html', 
+                            user_id= user_id,
                             user_age = age, 
                             user_zipcode=zipcode, 
                             user_ratings = rated_movies)
+
+
+@app.route('/movies')
+def list_all_movies():
+
+    movies = Movie.query.all()
+
+    return render_template('movies_list.html', movies = movies)
+
+
+
+
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
