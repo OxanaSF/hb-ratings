@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <h2>Movie {{ movie_title }}</h2>
+  Movie rated:
+  <ul>
+    {% for rating in movie_ratings %}
+      <li>
+          {{ rating }}
+      </li>
+    {% endfor %}
+  </ul>
+
+
+
+{% endblock %}

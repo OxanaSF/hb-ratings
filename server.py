@@ -110,6 +110,18 @@ def list_all_movies():
 
     return render_template('movies_list.html', movies = movies)
 
+@app.route('/movie_title/<title>')
+def movie_info(title):
+
+    movie = Movie.query.filter_by(title = title).first()
+    ratings = movie.ratings
+
+    return render_template('movie_info.html',
+                            movie_title = title,
+                            movie_ratings = ratings)
+
+
+
 
 
 
