@@ -114,16 +114,10 @@ def list_all_movies():
 def movie_info(title):
 
     movie = Movie.query.filter_by(title = title).first()
-    ratings = movie.ratings
+    
 
     return render_template('movie_info.html',
-                            movie_title = title,
-                            movie_ratings = ratings)
-
-
-
-
-
+                           movie= movie)
 
 
 if __name__ == "__main__":
